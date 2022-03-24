@@ -10,13 +10,13 @@ int arr[10000000];
 
 int main() {
     int rv;
-    FILE* fp = fopen("string2.txt", "r");
+    FILE* fp = fopen("string.txt", "r");
     if (fp == NULL) {
         printf("file error");
         return 1;
     }
     fgets(str, 10000000, fp);
-    FILE* fp2 = fopen("pattern2.txt", "r");
+    FILE* fp2 = fopen("pattern.txt", "r");
     if (fp2 == NULL) {
         printf("file error");
         return 1;
