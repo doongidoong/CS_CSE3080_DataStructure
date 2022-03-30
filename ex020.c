@@ -72,15 +72,15 @@ void queueFull() {
   
   int i, offset;
 
-  if(front == -1) {
+  if(front == -1) { //rear가 마지막 front가 -1 진짜 Full
     fprintf(stderr, "no more space in the queue\n");
     exit(1);
   }
 
-  offset = front + 1;
+  offset = front + 1; //몇 칸 이동할까
 
-  for(i=front+1; i<MAX_QUEUE_SIZE; i++) {
-    queue[i-offset] = queue[i];
+  for(i=front+1; i<MAX_QUEUE_SIZE; i++) { //front가 0이면 앞에 한칸있다는말, 따라서 1부터 시작
+    queue[i-offset] = queue[i]; 
   } 
 
   front = front - offset;
