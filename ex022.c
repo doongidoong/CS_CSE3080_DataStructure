@@ -4,10 +4,12 @@
 #define MAX_STACK_SIZE 100
 #define MAX_EXPR_SIZE 100
 
-typedef enum {lparen, rparen, plus, minus, times, divide, mod, eos, operand} precedence;
+typedef enum {lparen, rparen, plus, minus, times, divide, mod, eos, operand} precedence; //enum 0, 1 등등 부여
 int stack[MAX_STACK_SIZE];
-char expr[MAX_EXPR_SIZE];
-int top = -1;
+int top = -1; //스택을 위한 자료구조
+
+char expr[MAX_EXPR_SIZE]; //수식 문자열
+
 
 int eval();
 precedence getToken(char*, int*);
@@ -18,7 +20,7 @@ int stackEmpty();
 
 void main() {
 
-  //sprintf(expr, "62/3-42*+");
+  //sprintf(expr, "62/3-42*+"); 문자열에 해당 값을 넣음, strcopy와 달리 formating도 가능함
   sprintf(expr, "12+7*");
   printf("expr: %s\n", expr);
   printf("eval: %d\n", eval());
@@ -32,16 +34,16 @@ int eval() {
   int op1, op2;
   int n = 0;
 
-  token = getToken(&symbol, &n);
+  token = getToken(&symbol, &n); // symbol이 operand인지 뭐인지 반환
 
-  while(token != eos) {
-    if(token == operand) push(symbol - '0');  // insert operand to stack
+  while(token != eos) { // token이 끝났는지 판단
+    if(token == operand) push(symbol - '0');  // insert operand to stack 
     else {
       /* remove two operands, perform operation, and return result to the stack */
-      op2 = pop();
-      op1 = pop();
-      switch(token) {
-        case plus: push(op1+op2); break;
+      op2 = pop(); //2 뒤에꺼부터 두개
+      op1 = pop();  //1
+      switch(token) { //연산자에 따라 실행
+        case plus: push(op1+op2); break; 
         case minus: push(op1-op2); break;
         case times: push(op1*op2); break;
         case divide: push(op1/op2); break;
@@ -54,7 +56,7 @@ int eval() {
 }
 
 precedence getToken(char *symbol, int *n) {
-  *symbol = expr[(*n)++];
+  *symbol = expr[(*n)++]; // expr(string)의 n번째를 읽겠다 그리고 n을 증가시킴
 
   switch(*symbol) {
     case '(': return lparen;
