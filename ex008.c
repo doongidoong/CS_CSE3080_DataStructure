@@ -42,6 +42,7 @@ void main() {
 polynomial polynomial_add(polynomial p1, polynomial p2) {
 
   /* complete this function */
+
   polynomial p3;
   int i,degree;
   if(p1.degree > p2.degree) degree = p1.degree;
@@ -58,18 +59,17 @@ void polynomial_print(polynomial p) {
   int first_term=1;
   for(int i=p.degree;i>=0;i--){
     if(p.coef[i] == 0){continue;}
-    if(first_term){
+    if(first_term){ //처음은 + 없음
         printf("%dx^%d",p.coef[i],i);
         first_term=0;
       }
-    else if(i==0){
-        printf(" + %d",p.coef[i],i);
+    else if(i==0){ //마지막은 지수 없음
+        printf(" + %d",p.coef[i]);
       }
     else{
         printf(" + %dx^%d",p.coef[i],i);
       }
     }
     printf("\n");
-}
 
-  
+}
