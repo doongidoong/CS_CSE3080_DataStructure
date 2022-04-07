@@ -9,8 +9,8 @@ typedef struct {
 } date;
 
 typedef struct {
-  enum tagField {pitcher, hitter} role;
-  union {
+  enum tagField {pitcher, hitter} role; //tagfield는 enumerate 타입 이름이 됨.
+  union { //유니온은 굳이 같은 타입일 필요는 없음
     int SO;
     int HR;
   } u;
@@ -59,8 +59,8 @@ void main() {
   printf("address of month : %p\n", &person1.dob.month);
   printf("address of day   : %p\n", &person1.dob.day);
   printf("address of role  : %p\n", &person1.playerInfo.role);
-  printf("address of SO    : %p\n", &person1.playerInfo.u.SO);
-  printf("address of HR    : %p\n", &person1.playerInfo.u.HR);
+  printf("address of SO    : %p\n", &person1.playerInfo.u.SO);//두개 같음
+  printf("address of HR    : %p\n", &person1.playerInfo.u.HR);//두개 같음
   
 }
 
