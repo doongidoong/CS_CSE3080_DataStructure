@@ -1,3 +1,3 @@
-ex003: ex003.c
-	gcc -o ex003 ex003.c
+ex006: ex006.c
+	gcc -o ex006 ex006.c
 

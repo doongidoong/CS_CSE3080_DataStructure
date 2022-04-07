@@ -10,9 +10,9 @@ void main() {
   for(i=0; i<n; i++) 
     data[i] = rand()%100;
   printf("How many integers do you want to generate additionally? ");
-  scanf("%d", &m);
-  data = realloc(data, (n+m)*sizeof(int));
-  printf("memory reallocated at %p\n", data);
+  scanf("%d", &m); 
+  data = realloc(data, (n+m)*sizeof(int)); //크기만큼 재할당 
+  printf("memory reallocated at %p\n", data); //재할당하더라도 주소 시작위치는 같음
   for(i; i<n+m; i++) 
     data[i] = rand()%100;
   for(i=0; i<n+m; i++) 
