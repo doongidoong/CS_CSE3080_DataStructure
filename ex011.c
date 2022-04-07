@@ -36,7 +36,7 @@ void main() {
 }
 
 void printMatrix(term *m) {
-
+  
   int iter = 1, i, j;
   int rows = m[0].row;
   int cols = m[0].col;
@@ -61,6 +61,7 @@ void transpose(term *a, term *b) {
   /* complete this function! */
   /* the time complexity of this function should be O(num_columns x num_elements) */
   int n, i, j, currentb;
+  
   n = a[0].value; /* total number of elements */
   b[0].row = a[0].col; /* rows in b = columns in a */
   b[0].col = a[0].row; /* columns in b = rows in a */

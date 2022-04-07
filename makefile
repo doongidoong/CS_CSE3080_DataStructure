@@ -1,3 +1,3 @@
-ex009: ex009.c
-	gcc -o ex009 ex009.c
+ex010: ex011.c
+	gcc -o ex010 ex011.c
 
