@@ -9,7 +9,7 @@ precedence stack[MAX_STACK_SIZE];
 char expr[MAX_EXPR_SIZE];
 int top = -1;
 
-static int isp[] = {0, 19, 12, 12, 13, 13, 13, 0};
+static int isp[] = {0, 19, 12, 12, 13, 13, 13, 0}; //연산자 우선순위
 static int icp[] = {20, 19, 12, 12, 13, 13, 13, 0};
 
 void postfix();
@@ -40,15 +40,15 @@ void postfix() {
 
   for(token = getToken(&symbol, &n); token != eos; token = getToken(&symbol, &n)) {
 
-    if(token == operand) printf("%c", symbol);
+    if(token == operand) printf("%c", symbol); //만약 피연산자이면 그냥 식에 적고
     else if(token == rparen) {
-      while(stack[top] != lparen)
+      while(stack[top] != lparen) // 만약  오른쪽 괄호라면 왼쪽 괄호가 나올 때까지 뽑는다 
         printToken(pop());
-      pop();
+      pop();//남은 왼쪽괄호를 처리한다.
     }
     else {
       /* remove and print symbols whose isp is greater than or equal to the current token's icp */
-      while(isp[stack[top]] >= icp[token]) printToken(pop());
+      while(isp[stack[top]] >= icp[token]) printToken(pop()); // 연산자가 같거나 빠른 것이 있다면 뽑아서 식에 적는다.
       push(token);
     }
   }

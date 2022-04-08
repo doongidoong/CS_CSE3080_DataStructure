@@ -20,8 +20,8 @@ int stackEmpty();
 
 void main() {
 
-  //sprintf(expr, "62/3-42*+"); 문자열에 해당 값을 넣음, strcopy와 달리 formating도 가능함
   sprintf(expr, "12+7*");
+  //sprintf(expr, "62/3-42*+"); 문자열에 해당 값을 넣음, strcopy와 달리 formating도 가능함
   printf("expr: %s\n", expr);
   printf("eval: %d\n", eval());
 
