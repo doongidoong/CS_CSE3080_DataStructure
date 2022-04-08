@@ -23,6 +23,7 @@ void strnins(char *s, char *t, int i) {
     fprintf(stderr,"position out of bounds.\n"); //파일 끝내기 에러
     exit(1);
   }
+  
   if(!strlen(s)) strcpy(s,t); //s의 길이가 0일 경우 그냥 t를 복사
   else if(strlen(t)){//만약 붙여되는 t의 길이가 0이 아닐때만 
     strncpy(temp, s, i); //몇 바이트만 카피하자

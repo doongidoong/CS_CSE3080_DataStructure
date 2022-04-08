@@ -1,3 +1,3 @@
-ex010: ex011.c
-	gcc -o ex010 ex011.c
+hanoi: hanoi.c
+	gcc -o hanoi hanoi.c
 
