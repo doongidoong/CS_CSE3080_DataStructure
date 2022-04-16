@@ -131,7 +131,7 @@ void erase(poly_pointer *ptr) {
     temp = *ptr;
     *ptr = (*ptr)->link;
     free(temp);
-  }
+  }//포인터를 사용했기때문에 원래의 값이 Null로 가있음
 }
 
 
