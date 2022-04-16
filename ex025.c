@@ -11,29 +11,41 @@ int find(int);
 int length();
 void printList();
 void insertNode(int key){
-  struct listNode *node = NULL;
+  struct listNode *node;
   struct listNode *curr = head;
   struct listNode *prev = NULL;
+  if(find(key) >= 0){
+    printf("the key %d is already in the linked list",find(key));
+    return;
+  }
   node = malloc(sizeof(*node));
   node->data = key;
   node->link =NULL;
+
   while(curr) {
     if(curr->data > key) break;
     prev = curr;
     curr = curr->link;
   }
-
-  if(find(key) >= 0){
-    printf("the key %d is already in the linked list");
-    return;
-  }
   node->link = curr;
-  if(prev=NULL) head= node; //넣는 값이 맨처음이라면 head가 바뀌어야함
+  if(prev==NULL) head= node;//넣는 값이 맨처음이라면 head가 바뀌어야함
   else prev->link = node;
-
 }
 
-// int deleteNode(int);
+int deleteNode(int index){
+  struct listNode *curr=head;
+  struct listNode *prev;
+  int now = 0;
+  while(curr){
+    now++;
+    if(now==index) break;
+    prev = curr;
+    curr = curr->link;
+  }
+  prev->link = prev->link->link;
+  free(curr);
+  return 1;
+}
 
 void main() {
 
@@ -49,7 +61,9 @@ void main() {
     else prevNode->link = node;
     prevNode = node;
   }
-
+  printList();
+  insertNode(25);
+  deleteNode(4);
   printList();
   printf("result of finding %d: %d\n", 30, find(30));
   printf("number of integers in the list: %d\n", length());

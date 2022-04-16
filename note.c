@@ -1,63 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_STACK_SIZE 10    // maximum stack size
+#define MAX_QUEUE_SIZE 10
 #define INVALID_KEY -1
 
 typedef struct {
   int key;
   /* other fields if necessary */
 } element;
-element stack[MAX_STACK_SIZE];
-int top = -1;   // if top is -1, it means the stack is empty
 
-void push(element);
-element pop();
-void stackFull();
-element stackEmpty();
-//void printStack();
+element queue[MAX_QUEUE_SIZE];
+int rear = 0;
+int front = 0;
+
+void addq(element);
+element deleteq();
+void queueFull();
+element queueEmpty();
 
 void main() {
 
   int i;
   element e;
 
-  for(i = 0; i < 15; i++) {
+  for(i = 0; i < 8; i++) {
     e.key = i;
-    push(e);
-    printf("key %d inserted into the stack.\n", e.key);
-  }  
+    addq(e);
+    printf("key %2d inserted into the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
+  }
 
-  for(i = 0; i < 5; i++) {
-    e = pop();
-    printf("key %d deleted from the stack.\n", e.key);
+  for(i = 0; i < 8; i++) {
+    e = deleteq();
+    printf("key %2d  deleted from the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
+  }
+
+  for(i = 8; i < 16; i++) {
+    e.key = i;
+    addq(e);
+    printf("key %2d inserted into the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
+  }
+
+  for(i = 8; i < 16; i++) {
+    e = deleteq();
+    printf("key %2d  deleted from the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
   }
 }
 
-void push(element item) {
-  /* add an item to the global stack */
-  if(top >= MAX_STACK_SIZE - 1)
-    stackFull();
-  stack[++top] = item;
+void addq(element item) {
+  /* add an item to the queue */
+  rear = (rear + 1) % MAX_QUEUE_SIZE;
+  if(front == rear) 
+    queueFull();
+  queue[rear] = item;
 }
 
-element pop() {
-  /* return the top element from the stack */
-  if(top == -1)
-    return stackEmpty();  /* error handler */
-  return stack[top--];
+element deleteq() {
+  /* remove element at the front of the queue */
+  if(front == rear)
+    return queueEmpty();
+  front = (front + 1) % MAX_QUEUE_SIZE;
+  return queue[front];
 }
 
-void stackFull() {
-  fprintf(stderr, "stack is full, cannot add element.\n");
-  exit(EXIT_FAILURE);
+void queueFull() {
+  fprintf(stderr, "no more space in the queue\n");
+  exit(1);
 }
 
-element stackEmpty() {
+element queueEmpty() {
   element e;
   e.key = INVALID_KEY;
   return e;
 }
-
-
-
