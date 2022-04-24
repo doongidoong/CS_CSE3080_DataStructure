@@ -1,4 +1,4 @@
-all : ex016 ex017 ex018 ex019 ex020 ex021 ex022 ex023 ex024 ex025 ex026 ex027 ex028 ex029 ex030 ex031 ex032 ex033 ex034 ex035 ex036 ex037 ex038 ex039
+all : ex016 ex017 ex018 ex019 ex020 ex021 ex022 ex023 ex024 ex025 ex026 ex027 ex028 ex029 ex030 ex031 ex032 ex033 ex034 ex035 ex036 ex037 ex038 ex039 note
 
 ex016: ex016.c
 	gcc -o ex016 ex016.c
@@ -48,3 +48,5 @@ ex038: ex038.c
 	gcc -o ex038 ex038.c
 ex039: ex039.c
 	gcc -o ex039 ex039.c
+note: note.c
+	gcc -o note note.c

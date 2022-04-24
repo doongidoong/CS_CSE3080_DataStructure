@@ -1,74 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MAX_QUEUE_SIZE 10
-#define INVALID_KEY -1
-
-typedef struct {
-  int key;
-  /* other fields if necessary */
-} element;
-
-element queue[MAX_QUEUE_SIZE];
-int rear = 0;
-int front = 0;
-
-void addq(element);
-element deleteq();
-void queueFull();
-element queueEmpty();
-
-void main() {
-
-  int i;
-  element e;
-
-  for(i = 0; i < 8; i++) {
-    e.key = i;
-    addq(e);
-    printf("key %2d inserted into the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
-  }
-
-  for(i = 0; i < 8; i++) {
-    e = deleteq();
-    printf("key %2d  deleted from the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
-  }
-
-  for(i = 8; i < 16; i++) {
-    e.key = i;
-    addq(e);
-    printf("key %2d inserted into the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
-  }
-
-  for(i = 8; i < 16; i++) {
-    e = deleteq();
-    printf("key %2d  deleted from the queue. (front: %2d rear: %2d)\n", e.key, front, rear);
-  }
+struct node { 
+ char data; 
+ struct node *left_child, *right_child; 
+}; 
+typedef struct node *tree_pointer; 
+tree_pointer create_tree_node(char data) { 
+ tree_pointer ptr = (tree_pointer)malloc(sizeof(struct node)); 
+ ptr->data = data; 
+ ptr->left_child = NULL; 
+ ptr->right_child = NULL; 
+ return ptr; 
+} 
+void recursive_inorder(tree_pointer ptr) { 
+    if(ptr){
+        recursive_inorder(ptr->left_child);
+        printf("%c ",ptr->data);
+        recursive_inorder(ptr->left_child);
+    }
 }
-
-void addq(element item) {
-  /* add an item to the queue */
-  rear = (rear + 1) % MAX_QUEUE_SIZE;
-  if(front == rear) 
-    queueFull();
-  queue[rear] = item;
-}
-
-element deleteq() {
-  /* remove element at the front of the queue */
-  if(front == rear)
-    return queueEmpty();
-  front = (front + 1) % MAX_QUEUE_SIZE;
-  return queue[front];
-}
-
-void queueFull() {
-  fprintf(stderr, "no more space in the queue\n");
-  exit(1);
-}
-
-element queueEmpty() {
-  element e;
-  e.key = INVALID_KEY;
-  return e;
-}
+void recursive_postorder(tree_pointer ptr) { 
+    if(ptr){
+        recursive_inorder(ptr->left_child);
+        recursive_inorder(ptr->left_child);
+        printf("%c ",ptr->data);
+    }
+} 
+void main() { 
+ /* create a tree that represents an arithmetic expression */ 
+ tree_pointer ptr, ptr1, ptr2; 
+ ptr1 = create_tree_node('A'); 
+ ptr2 = create_tree_node('B'); 
+ ptr = create_tree_node('/'); 
+ ptr->left_child = ptr1; 
+ ptr->right_child = ptr2; 
+ ptr1 = ptr; 
+ ptr2 = create_tree_node('C'); 
+ ptr = create_tree_node('*'); 
+ ptr->left_child = ptr1; 
+ ptr->right_child = ptr2; 
+ ptr1 = ptr; 
+ ptr2 = create_tree_node('D'); 
+ ptr = create_tree_node('*'); 
+ ptr->left_child = ptr1; 
+ ptr->right_child = ptr2; 
+ ptr1 = ptr; 
+ ptr2 = create_tree_node('E'); 
+ ptr = create_tree_node('+'); 
+ ptr->left_child = ptr1; 
+ ptr->right_child = ptr2; 
+ /* call traversal functions */ 
+ recursive_inorder(ptr); 
+ printf("\n"); 
+ recursive_postorder(ptr); 
+ printf("\n"); 
+} 
