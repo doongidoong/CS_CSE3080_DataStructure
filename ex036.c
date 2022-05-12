@@ -15,7 +15,7 @@ void iter_inorder(tree_pointer ptr);
 void iter_postorder(tree_pointer ptr);
 void iter_preorder(tree_pointer ptr);
 void level_order(tree_pointer ptr);
-
+void recursive_preorder(tree_pointer ptr);
 /* TODO: add function prototype if necessary */
 
 void main() {
@@ -48,15 +48,18 @@ void main() {
   ptr->right_child = ptr2;
 
   /* call traversal functions */
+  
   recursive_inorder(ptr);
   printf("\n");
   iter_inorder(ptr);
+  printf("\n");
+  recursive_preorder(ptr);
   printf("\n");
   iter_preorder(ptr);
   printf("\n");
   iter_postorder(ptr);
   printf("\n");
-  level_order(ptr);
+  // level_order(ptr);
   printf("\n");
 }
   
@@ -75,7 +78,13 @@ void recursive_inorder(tree_pointer ptr) {
     recursive_inorder(ptr->right_child);
   }
 }
-
+void recursive_preorder(tree_pointer ptr) {
+  if(ptr) {
+    printf("%c ", ptr->data);
+    recursive_preorder(ptr->left_child);
+    recursive_preorder(ptr->right_child);
+  }
+}
 void iter_inorder(tree_pointer ptr) { 
   int top = -1;
   tree_pointer stack[MAX_STACK_SIZE];
@@ -89,11 +98,25 @@ void iter_inorder(tree_pointer ptr) {
   }
 }
 
+
 void iter_preorder(tree_pointer ptr) {
   /* TODO: you must complete this function */
+  int top = -1;
+  tree_pointer stack[MAX_STACK_SIZE];
+  for( ; ; ) {
+    for( ; ptr; ptr = ptr->left_child){
+      printf("%c ", ptr->data);
+      stack[++top] = ptr;
+      }
+    if(top < 0) break;
+    ptr = stack[top--];
+    ptr = ptr->right_child;
+  }
 }
 void iter_postorder(tree_pointer ptr) {
   /* TODO: you must complete this function */
+
+  
 }
 void level_order(tree_pointer ptr) {
   /* TODO: you must complete this function */
