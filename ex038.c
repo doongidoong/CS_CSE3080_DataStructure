@@ -6,11 +6,12 @@
 #define HEAP_FULL(n) (n == MAX_ELEMENTS-1)
 #define HEAP_EMPTY(n) (!n)
 
+//define structure for implementing heap (using array)
 typedef struct {
   int key;
 } element;
 element heap[MAX_ELEMENTS];
-int n = 0;
+int n = 0;//엘리먼트 개수
 
 void insert_max_heap(element item, int *n);
 element delete_max_heap(int *n);
@@ -48,10 +49,10 @@ void insert_max_heap(element item, int *n) {
   }
   i = ++(*n);
   while((i != 1) && (item.key > heap[i/2].key)) {
-    heap[i] = heap[i/2];
+    heap[i] = heap[i/2];//자식이 부모보다 크면 일단 부모를 자식의 위치에 넣어줌
     i /= 2;
   }
-  heap[i] = item;
+  heap[i] = item; //더 이상 자식이 크지 않을 경우, 그 위치에 item을 넣어줌
 }
 
 element delete_max_heap(int *n) {
@@ -63,18 +64,20 @@ element delete_max_heap(int *n) {
     exit(1);
   }
   /* save value of the element with the largest key */
-  item = heap[1];
+  item = heap[1]; //지울 아이템
   /* use the last element in the heap to adjust heap */
-  temp = heap[(*n)--];
-  parent = 1;
-  child = 2;
-  while(child <= *n) {
+  temp = heap[(*n)--]; //바꿔치기할 아이템을 꺼내놓고, n은 1 줄임
+  parent = 1; //시작 parent
+  child = 2; 
+  while(child <= *n) { //child가 있는 경우만 while
     /* find the larger child of the current parent */
-    if((child < *n) && (heap[child].key < heap[child+1].key)) child++;
-    if(temp.key >= heap[child].key) break;
+    if((child < *n) && (heap[child].key < heap[child+1].key)) child++; //child+1도 존재한다면 둘 중에 큰 값을 가르키도록 함. 
+    // child는 2씩 증가하는데 이 child보다 n이 더 크다면, child는 마지막이 아님. 따라서 child+1도 존재함.
+
+    if(temp.key >= heap[child].key) break;//temp가 더 크면 break
     /* move to the next lower level */
-    heap[parent] = heap[child];
-    parent = child;
+    heap[parent] = heap[child]; // child를 parent로 올려주고
+    parent = child;//이제 비교할 parent를 child로 
     child *= 2;
   }
   heap[parent] = temp;
